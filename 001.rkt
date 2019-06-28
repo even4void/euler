@@ -7,9 +7,9 @@
 
 (define (sol-001 (limit 1000))
   (apply +
-    (for/list ([x (in-range 1000)]
-      #:when (or (= (modulo x 3) 0)
-                 (= (modulo x 5) 0)))
-     x)))
+         (for/list ([x (in-range limit)]
+                     #:when (or (= (modulo x 3) 0)
+                                (= (modulo x 5) 0)))
+           x)))
 
 (sol-001)
