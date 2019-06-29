@@ -11,3 +11,6 @@ A little helper function, defined as follows, provides a more efficient way to s
            (/ (* n (* p (add1 p))) 2)))
 ```
 
+## Problem 002
+
+The conscious reader will [check](https://mathematica.stackexchange.com/q/37266) and [prove](https://math.stackexchange.com/q/2386804) that it is possible to exploit the fact that even numbers occur every three steps, so that we save money on the even-number filter. For the record, the Racket [range](https://docs.racket-lang.org/reference/pairs.html?q=range#%28def._%28%28lib._racket%2Flist..rkt%29._range%29%29) function has everything we need to iterate over a list of numbers using a predefined step.
