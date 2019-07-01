@@ -14,3 +14,7 @@ A little helper function, defined as follows, provides a more efficient way to s
 ## Problem 002
 
 The conscious reader will [check](https://mathematica.stackexchange.com/q/37266) and [prove](https://math.stackexchange.com/q/2386804) that it is possible to exploit the fact that even numbers occur every three steps, so that we save money on the even-number filter. For the record, the Racket [range](https://docs.racket-lang.org/reference/pairs.html?q=range#%28def._%28%28lib._racket%2Flist..rkt%29._range%29%29) function has everything we need to iterate over a list of numbers using a predefined step.
+
+## Problem 003
+
+The Haskell wiki has some working code for [primality testing](https://wiki.haskell.org/Testing_primality#Primality_Test_and_Integer_Factorization) and the like. Using Racket, Lisp or Python, we don't have to worry working with very large integers. Moreover, Racket has a nice submodule related to number theory in `math`, which simplifies the task to a great extent. Otherwise, we would have to implement prime factorization ourselves (see, e.g., [this gist](https://gist.github.com/dstnbrkr/855700)).
