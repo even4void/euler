@@ -18,3 +18,20 @@ The conscious reader will [check](https://mathematica.stackexchange.com/q/37266)
 ## Problem 003
 
 The Haskell wiki has some working code for [primality testing](https://wiki.haskell.org/Testing_primality#Primality_Test_and_Integer_Factorization) and the like. Using Racket, Lisp or Python, we don't have to worry working with very large integers. Moreover, Racket has a nice submodule related to number theory in `math`, which simplifies the task to a great extent. Otherwise, we would have to implement prime factorization ourselves (see, e.g., [this gist](https://gist.github.com/dstnbrkr/855700)).
+
+## Problem 004
+
+There are probably many ways to tackle this problem. If we want to treat this like a classical palindrome problem, we need to deal with number-to-string conversion, and then rely on brute-force searching using Racket `for`-loop facilities. The trick is to limit the iteration to numbers ranging from 100 to 999 (and not 0 to 1000 since we want 3-digit number), and to start with larger values as it will increase our chance to find a large palindrome early on. Another nice solution appears at [JP's blog](https://blog.jverkamp.com/2012/11/07/project-euler-4/).
+
+## Problem 005
+
+This is just a brute-force approach, exploiting `for`-loop in Racket and existing algorithm for [generic numerics](https://docs.racket-lang.org/reference/generic-numbers.html). We could roll our own routines to compute `gcd` and `lcm`, e.g.:
+
+```racket
+(define (gcd a b)
+  (if (= b 0)
+    a
+    (gcd b (remainder a b))))
+(define (lcm a b)
+  (/ (abs (* a b)) (gcd a b)))
+```
