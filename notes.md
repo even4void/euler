@@ -1,6 +1,6 @@
 ## Problem 001
 
-A more elegant solution exploits the fact that we count numbers divisible by 15 twice, when enumerating numbers that are divisible by either 3 or 5. 
+A more elegant solution exploits the fact that we count numbers divisible by 15 twice, when enumerating numbers that are divisible by either 3 or 5.
 
 A little helper function, defined as follows, provides a more efficient way to solve the problem:
 
@@ -35,3 +35,7 @@ This is just a brute-force approach, exploiting `for`-loop in Racket and existin
 (define (lcm a b)
   (/ (abs (* a b)) (gcd a b)))
 ```
+
+## Problem 006
+
+Again, the Racket doesn't use any optimization trick. However, a clever implementation would use the fact that $1+2+\dots+n = \tfrac{1}{2}n(n+1)$, and $1^2+2^2+\dots+n^2 = \tfrac{1}{6}n(2n+1)(n+1)$. Not sure if we really need to care with infinite precision integers. In any case, those two quantities are well known in applied statistical textbooks, although [Welford's method](https://www.johndcook.com/blog/2008/09/26/comparing-three-methods-of-computing-standard-deviation/) is also a good approach.
