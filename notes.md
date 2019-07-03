@@ -2,6 +2,12 @@
 
 ## Problem 001
 
+Brute-force is eligible in this case, computer are fast enough for such small numbers. If you are looking for an elegant answer, probably Haskell will be your friend for this particular problem, as it amounts to:
+
+```haskell
+sum [x | x <- [0..999], (mod x 3) == 0 || (mod x 5) == 0]
+```
+
 A more elegant solution exploits the fact that we count numbers divisible by 15 twice, when enumerating numbers that are divisible by either 3 or 5.
 
 A little helper function, defined as follows, provides a more efficient way to solve the problem:
@@ -40,4 +46,31 @@ This is just a brute-force approach, exploiting `for`-loop in Racket and existin
 
 ## Problem 006
 
-Again, the Racket doesn't use any optimization trick. However, a clever implementation would use the fact that $1+2+\dots+n = \tfrac{1}{2}n(n+1)$, and $1^2+2^2+\dots+n^2 = \tfrac{1}{6}n(2n+1)(n+1)$. Not sure if we really need to care with infinite precision integers. In any case, those two quantities are well known in applied statistical textbooks, although [Welford's method](https://www.johndcook.com/blog/2008/09/26/comparing-three-methods-of-computing-standard-deviation/) is also a good approach.
+Again, the Racket doesn't use any optimization trick. However, a clever implementation would use the fact that $1+2+\dots+n = \tfrac{1}{2}n(n+1)$, and $1^2+2^2+\dots+n^2 = \tfrac{1}{6}n(2n+1)(n+1)$. In the latter case, we can even prove that the sum of square of the $n$ first odd numbers is $\frac{n(4n^2-1)}{3}$, while the sum of squares of the $n$ first even numbers is $\frac{2n(n+1)(2n+1)}{3}$.
+
+Not sure if we really need to care with infinite precision integers. Using Mathematica, this boils down to `Total[Range[10]]^2 - Total[Range[10]^2]`. In any case, those two quantities are well known in applied statistical textbooks, although [Welford's method](https://www.johndcook.com/blog/2008/09/26/comparing-three-methods-of-computing-standard-deviation/) is also a good approach when it comes to computing an empirical variance.
+
+## Problem 007
+
+Mathematica probably provides the shortest answer using `Prime[10001]` (and I guess Pari/GP would do as well). Enumerating Prime numbers suggest to use an efficient way to compute if a given integer is a prime, such as the [Sieve of Erasthothenes](https://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf) (a sieve algorithm for Prime numbers is discussed in the SICP textbook, but it turns out it is a different algorithm; likewise, the "trial division", which checks if a number $x$ is a prime by testing its divisibility against each of the primes $<x$, is a suboptimal approach). There are interesting implementations in Scheme available on Programming Praxis, e.g., [Sieve of Eratosthenes](https://programmingpraxis.com/2009/02/19/sieve-of-eratosthenes/), [Incremental Sieve Of Eratosthenes](https://programmingpraxis.com/2015/07/31/incremental-sieve-of-eratosthenes/), or [Segmented Sieve Of Eratosthenes](https://programmingpraxis.com/2010/02/05/segmented-sieve-of-eratosthenes/).
+
+A concise and elegant solution can be written in Python using a generator function:
+
+```python
+def sieve(n):
+    s = [1] * n
+    s[0] = s[1] = False
+
+    for (i, match) in enumerate(s):
+        if match:
+            yield i
+            for n in range(i**2, n, i):
+                s[n] = 0
+```
+
+The problem when using a sieve is that you need to list all values up to a certain number of items, i.e., it won't tell you what's the $k$-th prime number. Anyway, to get the last value computed by the above generator and not print all items using list comprehension, you can use a "deque":
+
+```python
+from collections import deque
+deque(sieve(100), maxlen=1).pop()
+```
