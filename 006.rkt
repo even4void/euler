@@ -13,8 +13,8 @@
 
 (define (sol-006)
   (let* ([x (range 1 101)]
-        [sum-of-squares (apply + (map sqr x))]
-        [square-of-sum (sqr (apply + x))])
+         [sum-of-squares (apply + (map sqr x))]
+         [square-of-sum (sqr (apply + x))])
     (- square-of-sum sum-of-squares)))
 
 (sol-006)

@@ -1,3 +1,5 @@
+# Some notes on Euler problems
+
 ## Problem 001
 
 A more elegant solution exploits the fact that we count numbers divisible by 15 twice, when enumerating numbers that are divisible by either 3 or 5.
