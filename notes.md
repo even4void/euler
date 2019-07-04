@@ -88,3 +88,7 @@ This is a common pattern in time series analysis or exploratory data analysis an
     (for/list ([i (max 0 (- m n -1))])
     (vector->list (vector-copy v i (+ i n))))))
 ```
+
+## Problem 009
+
+Note that a solution appears on Racket documentation center, specifically in the [Infix Expressions for Racket](https://docs.racket-lang.org/infix-manual/) manual. Here, we will be using a little helper function to check whether a given tuple `(a,b,c)` form a valid Pythagorean triplet, and then iterate over the list of possible candidates. The brute-force solution should work, yet it is possible to avoid iterating over a grid of 1000 by 1000 for `a` and `b` by remarking that since $a<b<c$ we must have $a<\tfrac{a+b+c}{3}$ and $a<b<\tfrac{a+b+c}{3}$. Lastly, there's no need to iterate over `c` as it is readily computed as `1000-a-b`, and of course it is way better to start the iteration with the largest values available.
