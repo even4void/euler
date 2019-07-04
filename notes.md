@@ -52,7 +52,9 @@ Not sure if we really need to care with infinite precision integers. Using Mathe
 
 ## Problem 007
 
-Mathematica probably provides the shortest answer using `Prime[10001]` (and I guess Pari/GP would do as well). Enumerating Prime numbers suggest to use an efficient way to compute if a given integer is a prime, such as the [Sieve of Erasthothenes](https://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf) (a sieve algorithm for Prime numbers is discussed in the SICP textbook, but it turns out it is a different algorithm; likewise, the "trial division", which checks if a number $x$ is a prime by testing its divisibility against each of the primes $<x$, is a suboptimal approach). There are interesting implementations in Scheme available on Programming Praxis, e.g., [Sieve of Eratosthenes](https://programmingpraxis.com/2009/02/19/sieve-of-eratosthenes/), [Incremental Sieve Of Eratosthenes](https://programmingpraxis.com/2015/07/31/incremental-sieve-of-eratosthenes/), or [Segmented Sieve Of Eratosthenes](https://programmingpraxis.com/2010/02/05/segmented-sieve-of-eratosthenes/).
+Mathematica probably provides the shortest answer using `Prime[10001]` (and I guess Pari/GP would do as well). And, of course, Racket get you covered with the `nth-prime` [procedure](https://docs.racket-lang.org/math/number-theory.html#%28def._%28%28lib._math%2Fnumber-theory..rkt%29._nth-prime%29%29). Beware that you will need to ask for `(nth-prime 10000)`, and not 10001 since Racket uses 0-base index, i.e. `(nth-prime 0)` returns 2.
+
+In any case, enumerating Prime numbers suggest to use an efficient way to compute if a given integer is a prime, such as the [Sieve of Erasthothenes](https://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf) (a sieve algorithm for Prime numbers is discussed in the SICP textbook, but it turns out it is a different algorithm; likewise, the "trial division", which checks if a number $x$ is a prime by testing its divisibility against each of the primes $<x$, is a suboptimal approach). There are interesting implementations in Scheme available on Programming Praxis, e.g., [Sieve of Eratosthenes](https://programmingpraxis.com/2009/02/19/sieve-of-eratosthenes/), [Incremental Sieve Of Eratosthenes](https://programmingpraxis.com/2015/07/31/incremental-sieve-of-eratosthenes/), or [Segmented Sieve Of Eratosthenes](https://programmingpraxis.com/2010/02/05/segmented-sieve-of-eratosthenes/).
 
 A concise and elegant solution can be written in Python using a generator function:
 
@@ -73,4 +75,16 @@ The problem when using a sieve is that you need to list all values up to a certa
 ```python
 from collections import deque
 deque(sieve(100), maxlen=1).pop()
+```
+
+## Problem 008
+
+This is a common pattern in time series analysis or exploratory data analysis and it boils down to using a rolling window and to apply a custom function on observations falling in each consecutive window. A specific use case is computing the moving average of temporal data. Nice solutions in Python can be found with little googling, but here is reusable generic function in Racket (credit to [Jens Axel Søgaard](https://stackoverflow.com/a/40520792)):
+
+```racket
+(define (rolling-window n xs)
+  (let* ([v (list->vector xs)]
+         [m (vector-length v)])
+    (for/list ([i (max 0 (- m n -1))])
+    (vector->list (vector-copy v i (+ i n))))))
 ```
