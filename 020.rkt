@@ -8,7 +8,8 @@
 ;; https://projecteuler.net/problem=20
 
 (define (digits x)
-  (if (zero? x) '()
+  (if (zero? x)
+      null
       (cons (remainder x 10) (digits (quotient x 10)))))
 
 (define factorial
