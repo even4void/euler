@@ -10,12 +10,6 @@
 
 (require math/number-theory)
 
-;; https://stackoverflow.com/a/5741004
-;; (define (bagify lst)
-;;   (foldl (lambda (key ht)
-;;            (hash-update ht key add1 0))
-;;          #hash() lst))
-
 (define (triangle-divisors n)
   (length (divisors n)))
 
@@ -29,3 +23,9 @@
       (define a (triangle-number n))
       (set! n (+ n 1))
       a)))
+
+(define (sol-012)
+  (for*/list ([i (in-range 1 100)]
+                       [d (triangle-divisors (next))]
+                      #:when (>= d 500))
+             i))
