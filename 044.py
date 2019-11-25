@@ -4,6 +4,7 @@ import math
 
 
 def is_pentagonal(n):
+    """ Determine if n is a pentagonal number. """
     n = (math.sqrt(1 + 24*n) + 1) / 6
     return n == int(n)
 
