@@ -1,5 +1,5 @@
 #! /usr/bin/env stack
--- stack --resolver lts-13.26 script
+-- stack --resolver lts-16.26 script
 
 main :: IO ()
 main = print r
