@@ -2,10 +2,7 @@
 
 (defn sqr [x] (* x x))
 
-(defn sqr?
-  [n]
-  (let [x (Math/sqrt n)]
-    (== (int x) x)))
+(defn sqr? [n] (let [x (Math/sqrt n)] (== (int x) x)))
 
 (defn triplets
   [p]
@@ -19,8 +16,8 @@
 (defn sol-039
   [p]
   (->> (triplets p)
-     frequencies
-     (sort-by second)
-     last))
+       frequencies
+       (sort-by second)
+       last))
 
 (println (sol-039 1000))
